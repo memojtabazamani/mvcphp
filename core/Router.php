@@ -23,12 +23,19 @@ class Router {
      */
     public function resolve($requestUri)
     {
-        if(array_key_exists($requestUri, $this->routes)) { // Check!
-            echo "Route Found:" . $this->routes[$requestUri];
-
+        if(!array_key_exists($requestUri, $this->routes)) { // Check!
+            echo "404-Page Not Found";
             return;
         }
 
-        echo "404-Page Not Found";
+        $action = $this->routes[$requestUri];
+
+        [$controllerName, $methodName] = explode('@', $action);
+
+        require_once "../app/controllers/{$controllerName}.php";
+
+        $controller = new $controllerName();
+
+        $controller->$methodName();
     }
 }
