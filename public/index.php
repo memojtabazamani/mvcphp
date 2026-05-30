@@ -1,5 +1,6 @@
 <?php
 // Load Router Class
+require_once "../core/BaseController.php";
 require_once '../core/Router.php';
 // Create an object from Router class
 $router = new Router();

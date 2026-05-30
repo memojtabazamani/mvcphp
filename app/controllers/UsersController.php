@@ -1,8 +1,19 @@
 <?php
-class UsersController
+
+use core\BaseController;
+
+class UsersController extends BaseController
 {
     public function index()
     {
-        echo "UsersController";
+        $users = [
+            'Ali',
+            'Reza',
+            'Sara'
+        ];
+
+        $this->view("users/index", [
+            'users' => $users
+        ]);
     }
 }
