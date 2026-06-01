@@ -16,4 +16,8 @@ class UsersController extends BaseController
             'users' => $users
         ]);
     }
+	 public function show($id)
+    {
+        echo "User ID: {$id}";
+    }
 }

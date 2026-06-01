@@ -1,41 +1,57 @@
 <?php
-class Router {
+
+class Router
+{
     private array $routes = [];
 
-    /**
-     * @param $path
-     * @param $action
-     * @return void
-     * For Store Route
-     * Example: $router->get('/users', 'UserController@index')
-     * If User got to /users must be run UserController@index action
-     */
-    public function get($path, $action)
+    public function get(string $path, string $action): void
     {
-        $this->routes[$path] = $action;
+        $this->routes[] = [
+            'path' => $path,
+            'action' => $action
+        ];
     }
 
-    /**
-     * @param $requestUri
-     * @return void
-     * This method will be checked are requested uri stored or not?
-     * Example: /users? are store? or not?
-     */
-    public function resolve($requestUri)
+    public function resolve(string $requestUri): void
     {
-        if(!array_key_exists($requestUri, $this->routes)) { // Check!
-            echo "404-Page Not Found";
-            return;
+        foreach ($this->routes as $route) {
+
+            $pattern = preg_replace(
+                '/\{[a-zA-Z_][a-zA-Z0-9_]*\}/',
+                '([^\/]+)',
+                $route['path']
+            );
+
+            $pattern = "#^{$pattern}$#";
+
+            if (preg_match($pattern, $requestUri, $matches)) {
+
+                array_shift($matches);
+
+                $this->runAction(
+                    $route['action'],
+                    $matches
+                );
+
+                return;
+            }
         }
 
-        $action = $this->routes[$requestUri];
+        http_response_code(404);
+        echo "404 - Page Not Found";
+    }
 
+    private function runAction(string $action, array $params = []): void
+    {
         [$controllerName, $methodName] = explode('@', $action);
 
-        require_once "../app/controllers/{$controllerName}.php";
+        require_once __DIR__ . "/../app/controllers/{$controllerName}.php";
 
         $controller = new $controllerName();
 
-        $controller->$methodName();
+        call_user_func_array(
+            [$controller, $methodName],
+            $params
+        );
     }
 }
