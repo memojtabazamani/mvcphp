@@ -2,6 +2,13 @@
 namespace core;
 class BaseController
 {
+    protected Request $request;
+
+    public function __construct()
+    {
+        $this->request = new Request();
+    }
+
     /**
      * @param string $view
      * @param array $data
