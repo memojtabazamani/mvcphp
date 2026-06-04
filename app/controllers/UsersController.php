@@ -18,8 +18,16 @@ class UsersController extends BaseController
             'users' => $users
         ]);
     }
-	 public function show($id)
+	public function show($id)
     {
         echo "User ID: {$id}";
     }
+	
+	public function register() {
+		if($this->request->isPost()) {
+				echo $this->request->post('name');
+				return;
+		}
+		$this->view('users/register');
+	}
 }
