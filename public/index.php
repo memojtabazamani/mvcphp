@@ -3,6 +3,7 @@
 require_once "../core/BaseController.php";
 require_once '../core/Router.php';
 require_once '../core/Request.php';
+require_once '../core/Database.php';
 // Create an object from Router class
 $router = new Router();
 $request = new \core\Request();

@@ -30,4 +30,12 @@ class UsersController extends BaseController
 		}
 		$this->view('users/register');
 	}
+	public function testDb()
+	{
+		$db = new Database();
+
+		var_dump(
+			$db->connection()
+		);
+	}
 }
