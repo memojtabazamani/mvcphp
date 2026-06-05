@@ -1,6 +1,7 @@
 <?php
 
 use core\BaseController;
+require_once __DIR__ . '/../models/User.php';
 
 class UsersController extends BaseController
 {
@@ -32,10 +33,12 @@ class UsersController extends BaseController
 	}
 	public function testDb()
 	{
-		$db = new Database();
+		 $user = new User();
 
-		var_dump(
-			$db->connection()
+		echo '<pre>';
+
+		print_r(
+			$user->all()
 		);
 	}
 }
