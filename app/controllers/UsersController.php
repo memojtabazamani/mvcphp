@@ -1,6 +1,7 @@
 <?php
 
 use core\BaseController;
+
 require_once __DIR__ . '/../models/User.php';
 
 class UsersController extends BaseController
@@ -19,26 +20,47 @@ class UsersController extends BaseController
             'users' => $users
         ]);
     }
-	public function show($id)
+
+    public function show($id)
     {
         echo "User ID: {$id}";
     }
-	
-	public function register() {
-		if($this->request->isPost()) {
-				echo $this->request->post('name');
-				return;
-		}
-		$this->view('users/register');
-	}
-	public function testDb()
-	{
-		 $user = new User();
 
-		echo '<pre>';
+    public function register()
+    {
 
-		print_r(
-			$user->all()
-		);
-	}
+        if ($this->request->isPost()) {
+            $validator = new Validator();
+            $isValid = $validator
+                ->validate($this->request->all(),
+                [
+                    'name' => 'required',
+                    'email' => 'required|email',
+                ]);
+
+            if(!$isValid) {
+                echo "<pre>";
+
+                print_r(
+                    $validator->errors()
+                );
+
+                return;
+            }
+            echo $this->request->post('name');
+            return;
+        }
+        $this->view('users/register');
+    }
+
+    public function testDb()
+    {
+        $user = new User();
+
+        echo '<pre>';
+
+        print_r(
+            $user->all()
+        );
+    }
 }
