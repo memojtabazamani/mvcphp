@@ -33,24 +33,34 @@ class UsersController extends BaseController
             $validator = new Validator();
             $isValid = $validator
                 ->validate($this->request->all(),
-                [
-                    'name' => 'required',
-                    'email' => 'required|email',
-                ]);
+                    [
+                        'name' => 'required',
+                        'email' => 'required|email',
+                    ]);
 
-            if(!$isValid) {
-                echo "<pre>";
-
-                print_r(
+            if (!$isValid) {
+                $this->session->flash(
+                    'errors',
                     $validator->errors()
                 );
+                $this->session->flash('old',
+                    $this->request->all());
+                echo "<pre>";
 
-                return;
+                header('Location: /users/register');
+                exit;
             }
-            echo $this->request->post('name');
+            echo "User created";
+
             return;
         }
-        $this->view('users/register');
+        $errors = $this->session->getFlash('errors');
+        $old = $this->session->getFlash('old');
+
+        $this->view(
+            'users/register',
+            compact('errors', 'old')
+        );
     }
 
     public function testDb()

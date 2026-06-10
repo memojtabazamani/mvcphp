@@ -1,5 +1,6 @@
 <?php
 // Load Router Class
+require_once '../core/Session.php';
 require_once "../core/BaseController.php";
 require_once '../core/Router.php';
 require_once '../core/Request.php';

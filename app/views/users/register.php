@@ -22,5 +22,17 @@
     <button>
         Register
     </button>
+    <hr>
+    <?php if (!empty($errors)): ?>
+        <ul>
+            <?php foreach ($errors as $mainError): ?>
 
+                    <?php foreach ($mainError as $error) {
+                        echo "<li>" . $error . "</li>\n"; ;
+                    }
+
+                    ?>
+            <?php endforeach; ?>
+        </ul>
+    <?php endif; ?>
 </form>
