@@ -1,6 +1,7 @@
 <?php
 
 use core\BaseController;
+use core\Response;
 
 require_once __DIR__ . '/../models/User.php';
 
@@ -47,7 +48,7 @@ class UsersController extends BaseController
                     $this->request->all());
                 echo "<pre>";
 
-                header('Location: /users/register');
+                Response::redirect('/users/register');
                 exit;
             }
             echo "User created";
@@ -72,5 +73,10 @@ class UsersController extends BaseController
         print_r(
             $user->all()
         );
+    }
+    public function api() {
+        Response::json([
+            'status' => true,
+            'message' => 'Success']);
     }
 }

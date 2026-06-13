@@ -1,5 +1,7 @@
 <?php
 
+use core\Response;
+
 class Router
 {
     private array $routes = [];
@@ -37,8 +39,7 @@ class Router
             }
         }
 
-        http_response_code(404);
-        echo "404 - Page Not Found";
+        Response::notFound();
     }
 
     private function runAction(string $action, array $params = []): void
