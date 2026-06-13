@@ -3,4 +3,6 @@ $router->get('/', 'HomeController@index');
 $router->get('/users', 'UsersController@index');
 $router->get('/posts', 'PostsController@index');
 $router->get('/users/register', 'UsersController@register');
+$router->get('/users/test-db', 'UsersController@testDb');
 $router->get('/users/{id}', 'UsersController@show');
+$router->get('/users/register', 'UsersController@register');
