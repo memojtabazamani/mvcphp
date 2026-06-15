@@ -10,3 +10,11 @@ $router->get(
     '/api/users',
     'UsersController@api'
 );
+$router->get(
+    '/dashboard',
+    'DashboardController@index',
+    'auth'
+);
+$router->get('/auth/login', 'AuthController@login');
+
+$_SESSION['user_id'] = 1;
