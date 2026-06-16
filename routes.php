@@ -16,5 +16,3 @@ $router->get(
     'auth'
 );
 $router->get('/auth/login', 'AuthController@login');
-
-$_SESSION['user_id'] = 1;
