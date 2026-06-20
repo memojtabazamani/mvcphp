@@ -1,3 +1,8 @@
 <?php ?>
+Hello ! Here is Dashboard
 
-Login !
+<hr>
+
+<a href="/auth/logout">
+    Logout!
+</a>

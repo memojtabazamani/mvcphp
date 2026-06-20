@@ -27,42 +27,7 @@ class UsersController extends BaseController
         echo "User ID: {$id}";
     }
 
-    public function register()
-    {
 
-        if ($this->request->isPost()) {
-            $validator = new Validator();
-            $isValid = $validator
-                ->validate($this->request->all(),
-                    [
-                        'name' => 'required',
-                        'email' => 'required|email',
-                    ]);
-
-            if (!$isValid) {
-                $this->session->flash(
-                    'errors',
-                    $validator->errors()
-                );
-                $this->session->flash('old',
-                    $this->request->all());
-                echo "<pre>";
-
-                Response::redirect('/users/register');
-                exit;
-            }
-            echo "User created";
-
-            return;
-        }
-        $errors = $this->session->getFlash('errors');
-        $old = $this->session->getFlash('old');
-
-        $this->view(
-            'users/register',
-            compact('errors', 'old')
-        );
-    }
 
     public function testDb()
     {

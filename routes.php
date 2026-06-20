@@ -15,4 +15,8 @@ $router->get(
     'DashboardController@index',
     'auth'
 );
+# START AUTH SECTION
 $router->get('/auth/login', 'AuthController@login');
+$router->get('/auth/logout', 'AuthController@logout', 'auth');
+$router->get('/auth/register', 'AuthController@register');
+# END AUTH SECTION

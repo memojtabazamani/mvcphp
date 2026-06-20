@@ -14,4 +14,6 @@ class User extends BaseModel
 
         return $stmt->fetchAll();
     }
+
+
 }

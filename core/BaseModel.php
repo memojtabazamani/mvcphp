@@ -35,6 +35,28 @@ class BaseModel {
 
         return $stmt->fetch();
     }
+
+    public function create(array $data)
+    {
+        $colNames = implode(", ", array_keys($data));
+        $valuesOfCols = "";
+
+        foreach ($data as $k => $value) {
+
+            if($k == array_key_last($data)) {
+                $valuesOfCols .= ":" . $k;
+            } else {
+                $valuesOfCols .= ":" . $k . ", ";
+            }
+        }
+
+        $stmt = $this->db->prepare(
+            "INSERT INTO {$this->table} ({$colNames}) VALUES ({$valuesOfCols})"
+        );
+
+        $stmt->execute($data);
+        return $stmt->fetch();
+    }
 }
 
 ?>

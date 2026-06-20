@@ -9,8 +9,6 @@ class DashboardController extends BaseController
 {
     public function index()
     {
-        echo $this->request->get('page');
-        return;
         $users = [
             'Ali',
             'Reza',
