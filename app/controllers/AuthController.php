@@ -29,8 +29,18 @@ class AuthController extends BaseController
 
                 die('Wrong password');
             }
+            $userId = $user['id'];
             $_SESSION['user_id']
-                = $user['id'];
+                = $userId;
+
+                $rememberMe = $this->request->post('remember');
+
+                if($rememberMe) {
+                    $token = bin2hex(random_bytes(16));
+                    setcookie("remember_token", $token, time() + (86400 * 30), "/");
+                    $userModel->update(['remember_token' => $token], " id = $userId");
+                }
+
             Response::redirect(
                 '/dashboard'
             );
